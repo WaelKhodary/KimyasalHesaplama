@@ -1,9 +1,10 @@
 {
+  "id": "/KimyasalHesaplama/",
   "name": "GarantiPanel Chemical Calculator",
-  "short_name": "Kimyasal Hesp",
+  "short_name": "Kimyasal",
   "description": "GarantiPanel chemical calculator",
-  "start_url": "/GarantiChemApp/",
-  "scope": "/GarantiChemApp/",
+  "start_url": "/KimyasalHesaplama/",
+  "scope": "/KimyasalHesaplama/",
   "display": "standalone",
   "background_color": "#111111",
   "theme_color": "#111111",
