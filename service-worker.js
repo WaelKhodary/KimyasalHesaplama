@@ -1,6 +1,6 @@
-const CACHE_NAME = "garanti-coil-app-v1";
+const CACHE_NAME = "garanti-chemical-app-v1";
 
-const APP_BASE = "/GarantiCoilApp/";
+const APP_BASE = "/KimyasalHesaplama/";
 
 const FILES_TO_CACHE = [
     APP_BASE,
