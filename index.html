@@ -191,7 +191,7 @@ input {
 
   <div class="header">
 
-    <img src="logo.png"
+    <img src="images/logo.png"
          alt="Factory Logo"
          class="factory-logo">
 
@@ -216,7 +216,7 @@ input {
 <label id="productlable">Ürün Tipi</label>
 <div class="presetspro" id="presetspro"> </div>
 
-<p>Selected Product: <strong id="selectedpro">3 Hadve</strong></p>
+<p>Seçilen Ürün: <strong id="selectedpro">3 Hadve</strong></p>
 
 <div> 
 
@@ -233,7 +233,7 @@ input {
     oninput="calculate()"
   >
 <label>
-    Density (kg/m3)
+    Yoğunluk (kg/m3)
   </label>
   
   <input
@@ -245,20 +245,20 @@ input {
     oninput="calculate()"
   >
   <div class="info">
-    <p>Total Panel Volume: <strong id="totalVolume">0 m³</strong></p>
-    <p>Total Chemical Weight: <strong id="totalWeight">0 kg</strong></p>
+    <p>Toplam hacimi: <strong id="totalVolume">0 m³</strong></p>
+    <p>Toplam KİMYASAL: <strong id="totalWeight">0 kg</strong></p>
 </div>
 <div class="recipe">
 
-  <h2>Chemical Recipe</h2>
+  <h2>REÇETE</h2>
 
   <table class="recipe-table">
 
     <thead>
       <tr>
-        <th>Component</th>
-        <th>Recepe</th>
-        <th>Kg</th>
+        <th>ÜRÜN</th>
+        <th>değer</th>
+        <th>Toplam (Kg)</th>
       </tr>
     </thead>
 
@@ -276,7 +276,7 @@ input {
       </tr>
       <tr class="percentage-row">
         <td colspan="2">
-          Percentage: <span id="polyPercent">50.00%</span>
+          Yüzde: <span id="polyPercent">50.00%</span>
         </td>
       </tr>
 
@@ -292,7 +292,7 @@ input {
       </tr>
       <tr class="percentage-row">
         <td colspan="2">
-          Percentage: <span id="izoPercent">40.00%</span>
+          Yüzde: <span id="izoPercent">40.00%</span>
         </td>
       </tr>
 
@@ -308,7 +308,7 @@ input {
       </tr>
       <tr class="percentage-row">
         <td colspan="2">
-          Percentage: <span id="catPercent">7.50%</span>
+          Yüzde: <span id="catPercent">7.50%</span>
         </td>
         
       </tr>
@@ -325,7 +325,7 @@ input {
       </tr>
       <tr class="percentage-row">
         <td colspan="2">
-          Percentage: <span id="addPercent">2.50%</span>
+          Yüzde: <span id="addPercent">2.50%</span>
         </td>
       </tr>
 
@@ -333,7 +333,7 @@ input {
 
     <tfoot>
     <tr>
-        <th>TOTAL</th>
+        <th>Toplam</th>
         <th id="recipeTotal">200.00</th>
         <th id="chemicalTotalKg">0.00</th>
     </tr>
@@ -342,7 +342,7 @@ input {
   </table>
 
   <p>
-    Total Percentage:
+    Toplam Yüzdesi:
     <strong id="totalPercent">100.00%</strong>
   </p>
 
@@ -351,7 +351,7 @@ input {
 
   <div class="info">
         <div id="measurementInfo">
-      Ölçüm hacimi: (3 Hadve 0.0128 - 5 Hadve 0.0164) m3
+      Belirtilen değerler standart panel boyutlarına göre hesaplanır.
     </div>
   </div>
 
@@ -476,25 +476,33 @@ function calculate() {
     // STEP 4: Select the volume coefficient
     let volumeCoefficient;
 
-    if (selectedProduct === "3 Hadve" ||
-        selectedProduct === "Soğuk odasi") {
-        volumeCoefficient = 0.0128;
-    } else {
-        volumeCoefficient = 0.0164;
-    }
+switch (selectedProduct) {
+  case "Soğuk odasi":
+    volumeCoefficient = 0;
+    break;
+  case "Cephe":
+    volumeCoefficient = 0.00135;
+    break;
+  case "3 Hadve":
+     volumeCoefficient = 0.0027;
+    break;
+  case "5 Hadve":
+    volumeCoefficient = 0.0054;
+    break;
+}
 
     // STEP 5: Calculate total panel volume
     const thicknessCm = thickness / 10;
 
     const totalVolume =
-        production * thicknessCm * volumeCoefficient;
+        production * ((thicknessCm * 0.01) + volumeCoefficient);
 
     // STEP 6: Calculate total chemical weight
     const totalWeight = totalVolume * density;
 
     // STEP 7: Display results
     document.getElementById("totalVolume").textContent =
-        totalVolume.toFixed(2) + " m³";
+        totalVolume.toFixed(4) + " m³";
 
     document.getElementById("totalWeight").textContent =
         totalWeight.toFixed(2) + " kg";
@@ -584,6 +592,5 @@ createPresets();
 createPresetspro();
 calculate();
 </script>
-
 </body>
 </html>
